@@ -6,4 +6,14 @@ class Socio (Persona):
         self.__tipo_socio = tipo_socio
         self.__deuda = deuda
 
+
+    @property
+    def get_tipo (self):
+        return self.__tipo_socio
+    
+    @property
+    def get_deuda(self):
+        return self.__deuda
+
+
         

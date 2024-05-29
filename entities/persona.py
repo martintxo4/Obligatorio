@@ -8,7 +8,6 @@ class Persona(ABC):
         self.__fecha_ingreso = fecha_ingreso
         self.__nro_celular = nro_celular
 
-
-
-        
-    
+@property
+def get_Persona(self):
+    return self.__nombre
