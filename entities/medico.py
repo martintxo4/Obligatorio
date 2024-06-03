@@ -43,7 +43,7 @@ class Medico (Persona):
 
     
     def alta_medico(self):
-        medicos.append(self.__nombre,self.__apellido,self.__cedula,self.__fecha_nacimiento,self.__fecha_ingreso,self.__nro_celular,self.__especialidad)
+        medicos.append(self)
         
 
 
