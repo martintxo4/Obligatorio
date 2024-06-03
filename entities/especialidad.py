@@ -17,7 +17,7 @@ class Especialidad():
 
 
     def alta_especialidad(self):   
-        especialidades.append(self.__nombre_especialidad,self.__precio)
+        especialidades.append(self)
 
             
 

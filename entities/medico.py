@@ -1,7 +1,7 @@
 from persona import Persona
 from especialidad import get_especialidad 
 
-medicos = [[]]
+medicos = []
 class Medico (Persona):
     def __init__(self, nombre, apellido, cedula, fecha_nacimiento, fecha_ingreso, nro_celular,especialidad):
         super().__init__(nombre, apellido, cedula, fecha_nacimiento, fecha_ingreso, nro_celular)
@@ -43,7 +43,7 @@ class Medico (Persona):
 
     
     def alta_medico(self):
-        medicos.append [[self.__nombre,self.__apellido,self.__cedula,self.__fecha_nacimiento,self.__fecha_ingreso,self.__nro_celular,self.__especialidad]]
+        medicos.append(self.__nombre,self.__apellido,self.__cedula,self.__fecha_nacimiento,self.__fecha_ingreso,self.__nro_celular,self.__especialidad)
         
 
 
