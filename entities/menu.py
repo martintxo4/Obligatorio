@@ -1,5 +1,6 @@
 from especialidad import Especialidad
 from socio import Socio
+from socio import socios
 from medico import Medico
 from medico import medicos
 from policlinica import Policlinica
@@ -45,6 +46,37 @@ def menu():
             Policlinica.dar_alta_consulta()
             loop = True
         if respuesta == "5":
+            while True:
+                nombre_especialidad_consulta = input("Ingrese la especialidad")
+                String_Invalido.especialidad_check(nombre_especialidad_consulta)
+                while String_Invalido.especialidad_check != 0:
+                    nombre_especialidad_consulta = input("El nombre de la especialidad es incorrecto, ingréselo nuevamente")
+                    String_Invalido.especialidad_check(nombre_especialidad_consulta)
+                coso_pum = True
+                for i in range(0,len(Especialidad.especialidades)):
+                    if nombre_especialidad_consulta == Especialidad.especialidades[i][0]:
+                        coso_pum = False
+                while coso_pum == True:
+                    print("Esta especialidad no está dada de alta elija una opción: ")
+                    print("1 - Volver a ingresar la especialidad")
+                    resp = input("2 - Dar de alta esta especialidad")
+                    if resp == 1:
+                        coso_pum = False
+                        pass
+                    elif resp == 2:
+                        Policlinica.dar_alta_especialidad()
+                        break
+                    else:
+                        pass
+                else: 
+                    break
+                
+
+
+
+
+
+
             loop = True
         if respuesta == "6":
             print("Seleccione una opción:")
@@ -54,16 +86,18 @@ def menu():
             print("4. Realizar consultas respecto a cantidad de consultas entre dos fechas")
             respuesta2 = input("5. Realizar consultas respecto a las ganancias obtenidas entre dos fechas.")
             if respuesta2 == 1:
-                input()
-                for i in range(0,len(medicos)):
-                    pass
+                Policlinica.consultar_medicos()
             if respuesta2 == 2:
+
                 pass
             if respuesta2 == 3:
+                Policlinica.consultar_deudas()
                 pass
             if respuesta2 == 4:
                 pass
             if respuesta2 == 5:
+                especialidad_deseada = input("ingrese la especialidad deseada")
+                
                 pass
             else:
                 pass

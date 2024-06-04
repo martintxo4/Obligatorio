@@ -1,6 +1,7 @@
 from medico import Medico
 from medico import medicos
 from socio import Socio
+from socio import socios
 from consulta_medica import Consulta_Medica
 from especialidad import Especialidad
 from especialidad import especialidades
@@ -15,6 +16,7 @@ class Policlinica():
 
 
 
+    
     def dar_alta_especialidad():
         nombre_especialidad = input("Ingrese el nombre de la especialidad: ")
         precio_especialidad = input("Ingrese el precio asociado: ")
@@ -30,6 +32,33 @@ class Policlinica():
             Precio_Invalido.check_precio(precio_especialidad)
         especialidad = Especialidad(nombre_especialidad,precio_especialidad)
         Especialidad.alta_especialidad(especialidad)
+
+
+    def especialidad_no_dada_de_alta ():
+        while True:
+            nombre_especialidad_consulta = input("Ingrese la especialidad")
+            String_Invalido.especialidad_check(nombre_especialidad_consulta)
+            while String_Invalido.especialidad_check != 0:
+                nombre_especialidad_consulta = input("El nombre de la especialidad es incorrecto, ingréselo nuevamente")
+                String_Invalido.especialidad_check(nombre_especialidad_consulta)
+            coso_pum = True
+            for i in range(0,len(Especialidad.especialidades)):
+                if nombre_especialidad_consulta == Especialidad.especialidades[i][0]:
+                    coso_pum = False
+            while coso_pum == True:
+                print("Esta especialidad no está dada de alta elija una opción: ")
+                print("1 - Volver a ingresar la especialidad")
+                resp = input("2 - Dar de alta esta especialidad")
+                if resp == 1:
+                    coso_pum = False
+                    pass
+                elif resp == 2:
+                    Policlinica.dar_alta_especialidad()
+                    break
+                else:
+                    pass
+            else: 
+                break
 
 
     
@@ -136,6 +165,10 @@ class Policlinica():
                 break
             
 
+    
+    
+    
+    
     def dar_alta_consulta():
         while True:
             nombre_especialidad_consulta = input("Ingrese la especialidad")
@@ -161,6 +194,7 @@ class Policlinica():
                     pass
             else: 
                 break
+
                 
         while True:
             nombre_medico_consulta = input("Ingrese el nombre del médico")
@@ -195,3 +229,71 @@ class Policlinica():
         consulta = Consulta_Medica(nombre_especialidad_consulta,nombre_medico_consulta,fecha_consulta,pacientes_max)
         Consulta_Medica.alta_consulta(consulta)
 
+
+    
+    
+    
+    
+    def consultar_medicos():
+        while True:
+                nombre_especialidad_medicos = input("Ingrese la especialidad")
+                String_Invalido.especialidad_check(nombre_especialidad_medicos)
+                while String_Invalido.especialidad_check != 0:
+                    nombre_especialidad_medicos = input("El nombre de la especialidad es incorrecto, ingréselo nuevamente")
+                    String_Invalido.especialidad_check(nombre_especialidad_medicos)
+                chose_pum = True
+                for i in range(0,len(Especialidad.especialidades)):
+                    if nombre_especialidad_medicos == Especialidad.especialidades[i][0]:
+                        chose_pum = False
+                if chose_pum == True:
+                    print("El nombre de la especialidad es incorrecto, ingréselo nuevamente")
+                    pass
+                else: 
+                    break
+
+        for i in range(0,len(medicos)):
+            if nombre_especialidad_medicos == medicos[i][6]:
+                print([i][0],[i][1])
+            else:
+                print("No hay médicos asociados a esa especialidad.")
+
+
+    
+    
+    def consultar_precios():
+        while True:
+            nombre_especialidad = input("Ingrese la especialidad")
+            String_Invalido.especialidad_check(nombre_especialidad)
+            while String_Invalido.especialidad_check != 0:
+                nombre_especialidad = input("El nombre de la especialidad es incorrecto, ingréselo nuevamente")
+                String_Invalido.especialidad_check(nombre_especialidad)
+            skywalker = True
+            for i in range(0,len(Especialidad.especialidades)):
+                if nombre_especialidad == Especialidad.especialidades[i][0]:
+                    skywalker = False
+            if skywalker == True:
+                print("El nombre de la especialidad es incorrecto, ingréselo nuevamente")
+                pass
+            else: 
+                break
+        
+        for i in range(0,len(especialidades)):
+            if nombre_especialidad == [i][0]:
+                print ("el precio es:", [i][1])
+            else:
+                ("No existe esa especialidad.")
+
+    def consultar_deudas():
+        deudas = []
+        socios_deuda = []
+        for j in range(0,len(socios)):
+            for i in range(0,len(socios)):
+                max = 0
+                if max < socios[i][7]:
+                    max = socios[i][7]
+                    deudor = i
+                    deudas.append(max)
+                    socios_deuda.append(deudor)
+        listado_duedas = [[socios_deuda][deudas]]
+        print(listado_duedas)
+        

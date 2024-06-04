@@ -1,6 +1,6 @@
 from persona import Persona
 
-Socios = [[]]
+socios = []
 class Socio (Persona):
     def __init__(self, nombre, apellido, cedula, fecha_nacimiento, fecha_ingreso, nro_celular,tipo_socio,deuda):
         super().__init__(nombre, apellido, cedula, fecha_nacimiento, fecha_ingreso, nro_celular)
@@ -46,7 +46,7 @@ class Socio (Persona):
         return self.__deuda
 
     def alta_socio(self):
-        Socios.append [[self.__nombre,self.__apellido,self.__cedula,self.__fecha_nacimiento,self.__fecha_ingreso,self.__nro_celular,self.__tipo_socio,self.__deuda]]
+        socios.append(self)
 
 
 
