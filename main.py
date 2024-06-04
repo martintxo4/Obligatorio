@@ -1,5 +1,4 @@
 from entities.menu import menu
-from entities.especialidad import *
 from entities.policlinica import Policlinica
 
 if __name__ == "__main__":

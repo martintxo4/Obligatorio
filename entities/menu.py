@@ -1,16 +1,8 @@
-from especialidad import Especialidad
-from socio import Socio
-from socio import socios
-from medico import Medico
+
+from especialidad import especialidades
 from medico import medicos
 from policlinica import Policlinica
-from consulta_medica import Consulta_Medica
-from exceptions.precio_invalido import Precio_Invalido
 from exceptions.string_invalido import String_Invalido
-from exceptions.cedula_invalida import Cedula_Invalida
-from exceptions.fecha_invalida import Fecha_Invalida
-from exceptions.telefono_invalido import Telefono_Invalido
-from exceptions.tipo_deuda_invalida import Tipo_socio_Invalida
 
 
 def menu():
@@ -35,41 +27,33 @@ def menu():
             loop = True
         
         if respuesta == "3":
-            nombre_medico = input ("Ingrese el nombre:")
-            apellido_medico = input ("Ingrese el apellido:")
-            cedula_medico = input("Ingrese la cédula de identidad:")
-            fnacimiento_medico = input("Ingrese la fecha de nacimiento en formato aaaa-mm-dd:")
-            fingreso_medico = input("Ingrese la fecha de ingreso a la institución en formato aaaa-mm-dd:")
-            
+            Policlinica.dar_alta_medico()
             loop = True
         if respuesta == "4":
             Policlinica.dar_alta_consulta()
             loop = True
         if respuesta == "5":
             while True:
-                nombre_especialidad_consulta = input("Ingrese la especialidad")
-                String_Invalido.especialidad_check(nombre_especialidad_consulta)
-                while String_Invalido.especialidad_check != 0:
-                    nombre_especialidad_consulta = input("El nombre de la especialidad es incorrecto, ingréselo nuevamente")
-                    String_Invalido.especialidad_check(nombre_especialidad_consulta)
-                coso_pum = True
-                for i in range(0,len(Especialidad.especialidades)):
-                    if nombre_especialidad_consulta == Especialidad.especialidades[i][0]:
-                        coso_pum = False
-                while coso_pum == True:
-                    print("Esta especialidad no está dada de alta elija una opción: ")
-                    print("1 - Volver a ingresar la especialidad")
-                    resp = input("2 - Dar de alta esta especialidad")
-                    if resp == 1:
-                        coso_pum = False
-                        pass
-                    elif resp == 2:
-                        Policlinica.dar_alta_especialidad()
-                        break
-                    else:
-                        pass
+                nombre_especialidad_ticket_consulta = input("Ingrese la especialidad")
+                String_Invalido.string_check(nombre_especialidad_ticket_consulta)
+                while String_Invalido.string_check != 0:
+                    nombre_especialidad_ticket_consulta = input("El nombre de la especialidad es incorrecto, ingréselo nuevamente")
+                    String_Invalido.string_check(nombre_especialidad_ticket_consulta)
+                chose_pum = True
+                for i in range(0,len(especialidades)):
+                    if nombre_especialidad_ticket_consulta == especialidades[i][0]:
+                        chose_pum = False
+                if chose_pum == True:
+                    print("El nombre de la especialidad es incorrecto, ingréselo nuevamente")
+                    pass
                 else: 
                     break
+            for i in range(0,len(medicos)):
+                if nombre_especialidad_ticket_consulta == medicos [i][0]:
+                    pass
+
+                
+                
                 
 
 

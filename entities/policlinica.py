@@ -21,10 +21,10 @@ class Policlinica():
         nombre_especialidad = input("Ingrese el nombre de la especialidad: ")
         precio_especialidad = input("Ingrese el precio asociado: ")
 
-        String_Invalido.especialidad_check(nombre_especialidad)
-        while String_Invalido.especialidad_check != 0:
+        String_Invalido.string_check(nombre_especialidad)
+        while String_Invalido.string_check != 0:
             nombre_especialidad = input("El nombre de la especialidad es incorrecto, ingréselo nuevamente")
-            String_Invalido.especialidad_check(nombre_especialidad)
+            String_Invalido.string_check.string_check(nombre_especialidad)
 
         Precio_Invalido.check_precio(precio_especialidad)
         while Precio_Invalido.check_precio != 0:
@@ -37,13 +37,13 @@ class Policlinica():
     def especialidad_no_dada_de_alta ():
         while True:
             nombre_especialidad_consulta = input("Ingrese la especialidad")
-            String_Invalido.especialidad_check(nombre_especialidad_consulta)
-            while String_Invalido.especialidad_check != 0:
+            String_Invalido.string_check(nombre_especialidad_consulta)
+            while String_Invalido.string_check != 0:
                 nombre_especialidad_consulta = input("El nombre de la especialidad es incorrecto, ingréselo nuevamente")
-                String_Invalido.especialidad_check(nombre_especialidad_consulta)
+                String_Invalido.string_check(nombre_especialidad_consulta)
             coso_pum = True
-            for i in range(0,len(Especialidad.especialidades)):
-                if nombre_especialidad_consulta == Especialidad.especialidades[i][0]:
+            for i in range(0,len(especialidades)):
+                if nombre_especialidad_consulta == especialidades[i][0]:
                     coso_pum = False
             while coso_pum == True:
                 print("Esta especialidad no está dada de alta elija una opción: ")
@@ -73,15 +73,15 @@ class Policlinica():
         celular_socio= input ("Ingrese el número de celular:")
         tipo_socio = input ("Ingrese el tipo de socio: 1- Bonificado 2- No bonificado")
 
-        String_Invalido.nombre_check (nombre_socio)
-        while String_Invalido.nombre_check != 0:
+        String_Invalido.string_check(nombre_socio)
+        while String_Invalido.string_check != 0:
             nombre_socio = input("No es un nombre válido,ingréselo de nuevo")
-            String_Invalido.nombre_check (nombre_socio)
+            String_Invalido.string_check (nombre_socio)
 
-        String_Invalido.apellido_check (apellido_socio)
-        while String_Invalido.apellido_check != 0:
+        String_Invalido.string_check (apellido_socio)
+        while String_Invalido.string_check != 0:
             apellido_socio = input("No es un apellido válido, ingréselo de nuevo")
-            String_Invalido.apellido_check (apellido_socio)
+            String_Invalido.string_check (apellido_socio)
 
         Cedula_Invalida.cant_digitos (cedula_socio)
         while Cedula_Invalida.cant_digitos != 0:
@@ -118,15 +118,15 @@ class Policlinica():
         celular_medico = input ("Ingrese el número de celular:")
         especialidad_medico = input ("Ingrese la especialidad:")
 
-        String_Invalido.nombre_check (nombre_medico)
-        while String_Invalido.nombre_check != 0:
+        String_Invalido.string_check (nombre_medico)
+        while String_Invalido.string_check != 0:
             nombre_medico = input("No es un nombre válido,ingréselo de nuevo")
-            String_Invalido.nombre_check (nombre_medico)
+            String_Invalido.string_check (nombre_medico)
 
-        String_Invalido.apellido_check (apellido_medico)
-        while String_Invalido.apellido_check != 0:
+        String_Invalido.string_check (apellido_medico)
+        while String_Invalido.string_check != 0:
             apellido_medico = input("No es un apellido válido, ingréselo de nuevo")
-            String_Invalido.apellido_check (apellido_medico)
+            String_Invalido.string_check (apellido_medico)
 
         Cedula_Invalida.cant_digitos (cedula_medico)
         while Cedula_Invalida.cant_digitos != 0:
@@ -144,13 +144,13 @@ class Policlinica():
             Telefono_Invalido.cant_digitos (celular_medico)
 
         while True:    
-            String_Invalido.especialidad_check(especialidad_medico)
-            while String_Invalido.especialidad_check != 0:
+            String_Invalido.string_check(especialidad_medico)
+            while String_Invalido.string_check != 0:
                 especialidad_medico = input ("La especialidad debe ser un string.")
-                String_Invalido.especialidad_check(especialidad_medico)
+                String_Invalido.string_check(especialidad_medico)
             Joaco = True
-            for i in range (0,len(Especialidad.especialidades)):
-                if especialidad_medico == Especialidad.especialidades[i][0]:
+            for i in range (0,len(especialidades)):
+                if especialidad_medico == especialidades[i][0]:
                     Joaco = False        
             while Joaco == True:
                 print ("Esta especialidad no esta dada de alta")
@@ -172,13 +172,13 @@ class Policlinica():
     def dar_alta_consulta():
         while True:
             nombre_especialidad_consulta = input("Ingrese la especialidad")
-            String_Invalido.especialidad_check(nombre_especialidad_consulta)
-            while String_Invalido.especialidad_check != 0:
+            String_Invalido.string_check(nombre_especialidad_consulta)
+            while String_Invalido.string_check != 0:
                 nombre_especialidad_consulta = input("El nombre de la especialidad es incorrecto, ingréselo nuevamente")
-                String_Invalido.especialidad_check(nombre_especialidad_consulta)
+                String_Invalido.string_check(nombre_especialidad_consulta)
             coso_pum = True
-            for i in range(0,len(Especialidad.especialidades)):
-                if nombre_especialidad_consulta == Especialidad.especialidades[i][0]:
+            for i in range(0,len(especialidades)):
+                if nombre_especialidad_consulta == especialidades[i][0]:
                     coso_pum = False
             while coso_pum == True:
                 print("Esta especialidad no está dada de alta elija una opción: ")
@@ -199,8 +199,8 @@ class Policlinica():
         while True:
             nombre_medico_consulta = input("Ingrese el nombre del médico")
             coso_pum = True
-            for i in range(0,len(Medico.medicos)):
-                if nombre_medico_consulta == Medico.medicos[i][0]:
+            for i in range(0,len(medicos)):
+                if nombre_medico_consulta == medicos[i][0]:
                     coso_pum = False
             if coso_pum == True:
                 print("Este médico no está dado de alta, elija una opción: ")
@@ -237,13 +237,13 @@ class Policlinica():
     def consultar_medicos():
         while True:
                 nombre_especialidad_medicos = input("Ingrese la especialidad")
-                String_Invalido.especialidad_check(nombre_especialidad_medicos)
-                while String_Invalido.especialidad_check != 0:
+                String_Invalido.string_check(nombre_especialidad_medicos)
+                while String_Invalido.string_check != 0:
                     nombre_especialidad_medicos = input("El nombre de la especialidad es incorrecto, ingréselo nuevamente")
-                    String_Invalido.especialidad_check(nombre_especialidad_medicos)
+                    String_Invalido.string_check(nombre_especialidad_medicos)
                 chose_pum = True
-                for i in range(0,len(Especialidad.especialidades)):
-                    if nombre_especialidad_medicos == Especialidad.especialidades[i][0]:
+                for i in range(0,len(especialidades)):
+                    if nombre_especialidad_medicos == especialidades[i][0]:
                         chose_pum = False
                 if chose_pum == True:
                     print("El nombre de la especialidad es incorrecto, ingréselo nuevamente")
@@ -263,13 +263,13 @@ class Policlinica():
     def consultar_precios():
         while True:
             nombre_especialidad = input("Ingrese la especialidad")
-            String_Invalido.especialidad_check(nombre_especialidad)
-            while String_Invalido.especialidad_check != 0:
+            String_Invalido.string_check(nombre_especialidad)
+            while String_Invalido.string_check != 0:
                 nombre_especialidad = input("El nombre de la especialidad es incorrecto, ingréselo nuevamente")
-                String_Invalido.especialidad_check(nombre_especialidad)
+                String_Invalido.string_check(nombre_especialidad)
             skywalker = True
-            for i in range(0,len(Especialidad.especialidades)):
-                if nombre_especialidad == Especialidad.especialidades[i][0]:
+            for i in range(0,len(especialidades)):
+                if nombre_especialidad == especialidades[i][0]:
                     skywalker = False
             if skywalker == True:
                 print("El nombre de la especialidad es incorrecto, ingréselo nuevamente")
