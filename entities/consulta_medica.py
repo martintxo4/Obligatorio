@@ -1,5 +1,5 @@
-from socio import Socio
-from medico import Medico
+from entities.socio import Socio
+from entities.medico import Medico
 
 class Consulta_Medica():
     def __init__(self,especialidad,medico,fecha_consulta,cant_max_pacientes):

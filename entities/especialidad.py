@@ -1,5 +1,4 @@
-from exceptions.string_invalido import String_Invalido
-from exceptions.precio_invalido import Precio_Invalido
+
 especialidades = []
 class Especialidad():
     

@@ -1,10 +1,10 @@
-from medico import Medico
-from medico import medicos
-from socio import Socio
-from socio import socios
-from consulta_medica import Consulta_Medica
-from especialidad import Especialidad
-from especialidad import especialidades
+
+from entities.medico import medicos
+from entities.socio import Socio
+from entities.socio import socios
+from entities.consulta_medica import Consulta_Medica
+from entities.especialidad import Especialidad
+from entities.especialidad import especialidades
 from exceptions.precio_invalido import Precio_Invalido
 from exceptions.string_invalido import String_Invalido
 from exceptions.cedula_invalida import Cedula_Invalida
@@ -15,30 +15,26 @@ from exceptions.tipo_deuda_invalida import  Tipo_socio_Invalida
 class Policlinica():
 
 
-
-    
     def dar_alta_especialidad():
         nombre_especialidad = input("Ingrese el nombre de la especialidad: ")
+        while String_Invalido.string_check(nombre_especialidad) != True:
+            nombre_especialidad = input("El nombre de la especialidad es incorrecto, ingréselo nuevamente. ")
+            String_Invalido.string_check(nombre_especialidad)
+        
         precio_especialidad = input("Ingrese el precio asociado: ")
-
-        String_Invalido.string_check(nombre_especialidad)
-        while String_Invalido.string_check != 0:
-            nombre_especialidad = input("El nombre de la especialidad es incorrecto, ingréselo nuevamente")
-            String_Invalido.string_check.string_check(nombre_especialidad)
-
-        Precio_Invalido.check_precio(precio_especialidad)
-        while Precio_Invalido.check_precio != 0:
-            precio_especialidad = input("El precio de la especialidad es incorrecto, ingréselo nuevamente.")
+        while Precio_Invalido.check_precio(precio_especialidad) != True:
+            precio_especialidad = input("El precio de la especialidad es incorrecto, ingréselo nuevamente. ")
             Precio_Invalido.check_precio(precio_especialidad)
         especialidad = Especialidad(nombre_especialidad,precio_especialidad)
         Especialidad.alta_especialidad(especialidad)
+        
 
 
     def especialidad_no_dada_de_alta ():
         while True:
             nombre_especialidad_consulta = input("Ingrese la especialidad")
             String_Invalido.string_check(nombre_especialidad_consulta)
-            while String_Invalido.string_check != 0:
+            while String_Invalido.string_check(nombre_especialidad_consulta) != True:
                 nombre_especialidad_consulta = input("El nombre de la especialidad es incorrecto, ingréselo nuevamente")
                 String_Invalido.string_check(nombre_especialidad_consulta)
             coso_pum = True
@@ -66,42 +62,44 @@ class Policlinica():
    
     def dar_alta_socio():
         nombre_socio = input ("Ingrese el nombre:")
-        apellido_socio = input ("Ingrese el apellido:")
-        cedula_socio = input ("Ingrese la cédula de identidad:")
-        fnacimiento_socio = input ("Ingrese la fecha de nacimiento en formato aaaa-mm-dd:")
-        fingreso_socio = input ("Ingrese la fecha de ingreso a la institución en formato aaaa-mm-dd:")
-        celular_socio= input ("Ingrese el número de celular:")
-        tipo_socio = input ("Ingrese el tipo de socio: 1- Bonificado 2- No bonificado")
-
         String_Invalido.string_check(nombre_socio)
-        while String_Invalido.string_check != 0:
+        while String_Invalido.string_check(nombre_socio) != True:
             nombre_socio = input("No es un nombre válido,ingréselo de nuevo")
             String_Invalido.string_check (nombre_socio)
-
+        
+        apellido_socio = input ("Ingrese el apellido:")
         String_Invalido.string_check (apellido_socio)
-        while String_Invalido.string_check != 0:
+        while String_Invalido.string_check(apellido_socio) != True:
             apellido_socio = input("No es un apellido válido, ingréselo de nuevo")
             String_Invalido.string_check (apellido_socio)
-
+        
+        cedula_socio = input ("Ingrese la cédula de identidad:")
         Cedula_Invalida.cant_digitos (cedula_socio)
-        while Cedula_Invalida.cant_digitos != 0:
+        while Cedula_Invalida.cant_digitos(cedula_socio) != True:
             cedula_socio = input ("No es una cédula válida, ingrese nuevamente una cédula de 8 dígitos.")
             Cedula_Invalida.cant_digitos (cedula_socio)
-
-            #Fecha_Invalida.fnacimiento_check (fnacimiento_socio)
-            #while string_invalido.fnacimiento_check != 0 :                                                       MARTIN MARTIN MARTIN
-            #    fnacimiento = input("No es una fecha válida, vuelva a ingresarla en el formato aaaa-mm-dd.")     ESTO LO DEJE ASI PORQUE EXCEPTION NO ESTA HECHA Y NO TENGO NI LA MAS PUTA IDEA DE COMO HACERLA, GG WP
-            #    Fecha_Invalida.fnacimiento_check (fnacimiento_socio)                                             copy-paste para hacer fingreso
-
+       
+        fnacimiento_socio = input ("Ingrese la fecha de nacimiento en formato aaaa-mm-dd:")
+        
+        fingreso_socio = input ("Ingrese la fecha de ingreso a la institución en formato aaaa-mm-dd:")
+        
+        celular_socio= input ("Ingrese el número de celular:")
         Telefono_Invalido.cant_digitos (celular_socio)
         while Telefono_Invalido.cant_digitos != 0:
             celular_socio= input ("No es un número de celular válido, ingrese un número con el formato 09XXXXXXX")
             Telefono_Invalido.cant_digitos (celular_socio)
 
+        tipo_socio = input ("Ingrese el tipo de socio: 1- Bonificado 2- No bonificado")
         Tipo_socio_Invalida.valor_ingresado_incorrecto(tipo_socio)
-        while Tipo_socio_Invalida.valor_ingresado_incorrecto != 0:
+        while Tipo_socio_Invalida.valor_ingresado_incorrecto != True:
             tipo_socio=input("El valor ingresado no es correcto, elige la opción 1 o 2.")
             Tipo_socio_Invalida.valor_ingresado_incorrecto(tipo_socio)
+
+
+            #Fecha_Invalida.fnacimiento_check (fnacimiento_socio)
+            #while string_invalido.fnacimiento_check != 0 :                                                       MARTIN MARTIN MARTIN
+            #    fnacimiento = input("No es una fecha válida, vuelva a ingresarla en el formato aaaa-mm-dd.")     ESTO LO DEJE ASI PORQUE EXCEPTION NO ESTA HECHA Y NO TENGO NI LA MAS PUTA IDEA DE COMO HACERLA, GG WP
+            #    Fecha_Invalida.fnacimiento_check (fnacimiento_socio)                                             copy-paste para hacer fingreso
 
         Socio.alta_socio(nombre_socio,apellido_socio,cedula_socio,fnacimiento_socio,fingreso_socio,celular_socio,tipo_socio)
 
@@ -119,17 +117,17 @@ class Policlinica():
         especialidad_medico = input ("Ingrese la especialidad:")
 
         String_Invalido.string_check (nombre_medico)
-        while String_Invalido.string_check != 0:
+        while String_Invalido.string_check != True:
             nombre_medico = input("No es un nombre válido,ingréselo de nuevo")
             String_Invalido.string_check (nombre_medico)
 
         String_Invalido.string_check (apellido_medico)
-        while String_Invalido.string_check != 0:
+        while String_Invalido.string_check != True:
             apellido_medico = input("No es un apellido válido, ingréselo de nuevo")
             String_Invalido.string_check (apellido_medico)
 
         Cedula_Invalida.cant_digitos (cedula_medico)
-        while Cedula_Invalida.cant_digitos != 0:
+        while Cedula_Invalida.cant_digitos != True:
             cedula_medico = input ("No es una cédula válida, ingrese nuevamente una cédula de 8 dígitos.")
             Cedula_Invalida.cant_digitos (cedula_medico)
 
@@ -139,13 +137,13 @@ class Policlinica():
             #    Fecha_Invalida.fnacimiento_check (fnacimiento_socio)                                             copy-paste para hacer fingreso
 
         Telefono_Invalido.cant_digitos (celular_medico)
-        while Telefono_Invalido.cant_digitos != 0:
+        while Telefono_Invalido.cant_digitos != True:
             celular_medico= input ("No es un número de celular válido, ingrese un número con el formato 09XXXXXXX")
             Telefono_Invalido.cant_digitos (celular_medico)
 
         while True:    
             String_Invalido.string_check(especialidad_medico)
-            while String_Invalido.string_check != 0:
+            while String_Invalido.string_check != True:
                 especialidad_medico = input ("La especialidad debe ser un string.")
                 String_Invalido.string_check(especialidad_medico)
             Joaco = True
@@ -173,7 +171,7 @@ class Policlinica():
         while True:
             nombre_especialidad_consulta = input("Ingrese la especialidad")
             String_Invalido.string_check(nombre_especialidad_consulta)
-            while String_Invalido.string_check != 0:
+            while String_Invalido.string_check != True:
                 nombre_especialidad_consulta = input("El nombre de la especialidad es incorrecto, ingréselo nuevamente")
                 String_Invalido.string_check(nombre_especialidad_consulta)
             coso_pum = True
@@ -222,7 +220,7 @@ class Policlinica():
         #    Fecha_Invalida.fnacimiento_check (fnacimiento_socio)
         pacientes_max = input("Ingrese la cantidad de pacientes que se atenderán")
         Precio_Invalido.check_precio(pacientes_max)
-        while Precio_Invalido.check_precio != 0:
+        while Precio_Invalido.check_precio != True:
             pacientes_max = ("No es un número válido, vuelva a ingresarlo")
             Precio_Invalido.check_precio(pacientes_max)
 
@@ -238,7 +236,7 @@ class Policlinica():
         while True:
                 nombre_especialidad_medicos = input("Ingrese la especialidad")
                 String_Invalido.string_check(nombre_especialidad_medicos)
-                while String_Invalido.string_check != 0:
+                while String_Invalido.string_check != True:
                     nombre_especialidad_medicos = input("El nombre de la especialidad es incorrecto, ingréselo nuevamente")
                     String_Invalido.string_check(nombre_especialidad_medicos)
                 chose_pum = True
@@ -264,7 +262,7 @@ class Policlinica():
         while True:
             nombre_especialidad = input("Ingrese la especialidad")
             String_Invalido.string_check(nombre_especialidad)
-            while String_Invalido.string_check != 0:
+            while String_Invalido.string_check != True:
                 nombre_especialidad = input("El nombre de la especialidad es incorrecto, ingréselo nuevamente")
                 String_Invalido.string_check(nombre_especialidad)
             skywalker = True
@@ -294,6 +292,8 @@ class Policlinica():
                     deudor = i
                     deudas.append(max)
                     socios_deuda.append(deudor)
-        listado_duedas = [[socios_deuda][deudas]]
+        listado_duedas = [socios_deuda,deudas]
         print(listado_duedas)
+
+
         

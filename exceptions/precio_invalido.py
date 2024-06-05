@@ -1,9 +1,8 @@
 class Precio_Invalido(Exception):
-    correcto = False
 
     def check_precio(precio):
-        if isinstance(precio,int) == False:
-            raise Precio_Invalido(input("El precio de la especialidad es incorrecto, ingréselo nuevamente."))
+        if isinstance(precio,int):
+            raise Precio_Invalido
         else:
-            return 0
+            return True
 

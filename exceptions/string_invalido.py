@@ -3,11 +3,15 @@ class String_Invalido(Exception):
 
     def string_check(string):
         palabras = string.split()
-        for i in range(len(palabras)):
-            palabras[i].isalpha()
+        for i in range(0,len(palabras)):
             if palabras[i].isalpha() != True:
-                raise String_Invalido
-            else:
-                return 0
+                raise String_Invalido("No es un string válido, ingréselo de nuevo")
+        return True
             
+
+
+
+
+
+       
            

@@ -1,4 +1,4 @@
-from persona import Persona
+from entities.persona import Persona
 
 socios = []
 class Socio (Persona):

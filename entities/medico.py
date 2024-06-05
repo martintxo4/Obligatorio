@@ -1,5 +1,5 @@
-from persona import Persona
-from especialidad import get_especialidad 
+from entities.persona import Persona
+
 
 medicos = []
 class Medico (Persona):

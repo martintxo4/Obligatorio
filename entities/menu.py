@@ -1,7 +1,7 @@
 
-from especialidad import especialidades
-from medico import medicos
-from policlinica import Policlinica
+from entities.especialidad import especialidades
+from entities.medico import medicos
+from entities.policlinica import Policlinica
 from exceptions.string_invalido import String_Invalido
 
 
@@ -69,17 +69,17 @@ def menu():
             print("3. Listar todos los socios con sus deudas asociadas en orden ascendente.")
             print("4. Realizar consultas respecto a cantidad de consultas entre dos fechas")
             respuesta2 = input("5. Realizar consultas respecto a las ganancias obtenidas entre dos fechas.")
-            if respuesta2 == 1:
+            if respuesta2 == "1":
                 Policlinica.consultar_medicos()
-            if respuesta2 == 2:
+            if respuesta2 == "2":
 
                 pass
-            if respuesta2 == 3:
+            if respuesta2 == "3":
                 Policlinica.consultar_deudas()
                 pass
-            if respuesta2 == 4:
+            if respuesta2 == "4":
                 pass
-            if respuesta2 == 5:
+            if respuesta2 == "5":
                 especialidad_deseada = input("ingrese la especialidad deseada")
                 
                 pass
@@ -88,6 +88,6 @@ def menu():
             loop = True
         if respuesta == "7":
             loop = False
-        else:
+        elif respuesta != "1" or "2" or "3" or "4" or "5" or "6" or "7":
             print("La opción seleccionada no es correcta, vuelva a intentar con otra opción.")
 
