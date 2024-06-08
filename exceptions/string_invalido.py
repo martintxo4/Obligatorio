@@ -7,9 +7,6 @@ class String_Invalido(Exception):
             if palabras[i].isalpha() != True:
                 raise String_Invalido("No es un string válido, ingréselo de nuevo")
         return True
-            
-
-
 
 
 

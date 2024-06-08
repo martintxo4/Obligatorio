@@ -21,9 +21,9 @@ class Policlinica():
             nombre_especialidad = input("El nombre de la especialidad es incorrecto, ingréselo nuevamente. ")
             String_Invalido.string_check(nombre_especialidad)
         
-        precio_especialidad = input("Ingrese el precio asociado: ")
+        precio_especialidad = int(input("Ingrese el precio asociado: "))
         while Precio_Invalido.check_precio(precio_especialidad) != True:
-            precio_especialidad = input("El precio de la especialidad es incorrecto, ingréselo nuevamente. ")
+            precio_especialidad = int(input("El precio de la especialidad es incorrecto, ingréselo nuevamente. "))
             Precio_Invalido.check_precio(precio_especialidad)
         especialidad = Especialidad(nombre_especialidad,precio_especialidad)
         Especialidad.alta_especialidad(especialidad)

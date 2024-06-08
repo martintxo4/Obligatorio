@@ -9,5 +9,9 @@ class Persona(ABC):
         self.__nro_celular = nro_celular
 
 @property
-def get_Persona(self):
+def nombre(self):
     return self.__nombre
+
+@nombre.setter
+def nombre(self,nuevo_nombre):
+    self.__nombre = nuevo_nombre
