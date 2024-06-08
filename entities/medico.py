@@ -14,31 +14,31 @@ class Medico (Persona):
         self.__especialidad = especialidad
     
     @property
-    def get_nombre(self):
+    def nombre(self):
         return self.__nombre
 
     @property
-    def get_apellido (self):
+    def apellido (self):
         return self.__apellido
     
     @property
-    def get_cedula (self):
+    def cedula (self):
         return self.__cedula
     
     @property
-    def get_fecha_nacimiento (self):
+    def fecha_nacimiento (self):
         return self.__fecha_nacimiento
 
     @property
-    def get_fecha_ingreso(self):
+    def fecha_ingreso(self):
         return self.__fecha_ingreso
 
     @property
-    def get_celular(self):
+    def celular(self):
         return self.__nro_celular
     
     @property
-    def get_especialidad (self):
+    def especialidad (self):
         return self.__especialidad
 
     

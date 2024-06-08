@@ -1,7 +1,6 @@
-
-from entities.medico import medicos
 from entities.socio import Socio
 from entities.socio import socios
+from entities.medico import medicos
 from entities.consulta_medica import Consulta_Medica
 from entities.especialidad import Especialidad
 from entities.especialidad import especialidades
@@ -13,10 +12,36 @@ from exceptions.tipo_deuda_invalida import  Tipo_socio_Invalida
 
 
 class Policlinica():
+    def __init__(self) -> None:
+        self.__socios = []
+        self.__medicos = []
+        self.__especialidades = []
+        self.__consultas =[]
 
-
-    def dar_alta_especialidad():
+    def dar_alta_especialidad(self):
         nombre_especialidad = input("Ingrese el nombre de la especialidad: ")
+        precio = int(input("Ingrese el precio asociado: "))
+
+
+        palabras = nombre_especialidad.split()
+        for i in range(0,len(palabras)):
+            if palabras[i].isalpha() != True:
+                raise String_Invalido
+
+        if not isinstance(precio,int):
+            raise Precio_Invalido
+        
+        while True:
+            try:
+                especialidad = Especialidad(nombre_especialidad,precio)
+                self.__especialidades.append(especialidad)
+                break
+            except String_Invalido: 
+                nombre_especialidad = input("El nombre de la especialidad es incorrecto, ingréselo nuevamente. ")
+            except Precio_Invalido:
+                precio = int(input("El precio de la especialidad es incorrecto, ingréselo nuevamente. "))
+
+        """nombre_especialidad = input("Ingrese el nombre de la especialidad: ")
         while String_Invalido.string_check(nombre_especialidad) != True:
             nombre_especialidad = input("El nombre de la especialidad es incorrecto, ingréselo nuevamente. ")
             String_Invalido.string_check(nombre_especialidad)
@@ -26,7 +51,7 @@ class Policlinica():
             precio_especialidad = int(input("El precio de la especialidad es incorrecto, ingréselo nuevamente. "))
             Precio_Invalido.check_precio(precio_especialidad)
         especialidad = Especialidad(nombre_especialidad,precio_especialidad)
-        Especialidad.alta_especialidad(especialidad)
+        Especialidad.alta_especialidad(especialidad)"""
         
 
 
