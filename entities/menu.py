@@ -6,6 +6,7 @@ from exceptions.string_invalido import String_Invalido
 
 
 def menu():
+    policlinica = Policlinica()
     loop = True
 
     while loop==True:
@@ -19,18 +20,18 @@ def menu():
         print("7. Salir del programa")
         respuesta = input()
         if respuesta == "1":
-            Policlinica.dar_alta_especialidad()
+            policlinica.dar_alta_especialidad
             loop = True
         
         if respuesta == "2":
-            Policlinica.dar_alta_socio()
+            policlinica.dar_alta_socio
             loop = True
         
         if respuesta == "3":
-            Policlinica.dar_alta_medico()
+            policlinica.dar_alta_medico()
             loop = True
         if respuesta == "4":
-            Policlinica.dar_alta_consulta()
+            policlinica.dar_alta_consulta()
             loop = True
         if respuesta == "5":
             while True:
@@ -70,12 +71,12 @@ def menu():
             print("4. Realizar consultas respecto a cantidad de consultas entre dos fechas")
             respuesta2 = input("5. Realizar consultas respecto a las ganancias obtenidas entre dos fechas.")
             if respuesta2 == "1":
-                Policlinica.consultar_medicos()
+                policlinica.consultar_medicos()
             if respuesta2 == "2":
 
                 pass
             if respuesta2 == "3":
-                Policlinica.consultar_deudas()
+                policlinica.consultar_deudas()
                 pass
             if respuesta2 == "4":
                 pass
