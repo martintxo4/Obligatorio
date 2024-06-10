@@ -1,13 +1,13 @@
 especialidades = []
 class Especialidad():
     
-    def __init__(self,nombre_especialidad, precio):
-        self.__nombre_especialidad = nombre_especialidad
+    def __init__(self,nombre, precio):
+        self.__nombre = nombre
         self.__precio = precio
         self.__medicos = []
         
     @property
-    def especialidad(self):
+    def nombre(self):
         return self.__nombre_especialidad
 
     @property

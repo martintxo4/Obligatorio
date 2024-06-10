@@ -1,0 +1,2 @@
+class MedicoNoExiste (Exception):
+    pass
