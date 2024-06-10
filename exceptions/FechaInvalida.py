@@ -1,6 +1,6 @@
 import datetime
 
-class Fecha_Invalida(Exception):
+class FechaInvalida(Exception):
     pass
     
     def fecha_consulta_invalida ():

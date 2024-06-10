@@ -4,11 +4,11 @@ from entities.medico import medicos
 from entities.consulta_medica import Consulta_Medica
 from entities.especialidad import Especialidad
 from entities.especialidad import especialidades
-from exceptions.precio_invalido import Precio_Invalido
-from exceptions.string_invalido import String_Invalido
+from exceptions.PrecioInvalido import Precio_Invalido
+from exceptions.StringInvalido import String_Invalido
 from exceptions.cedula_invalida import Cedula_Invalida
-from exceptions.telefono_invalido import Telefono_Invalido
-from exceptions.tipo_deuda_invalida import  Tipo_socio_Invalida
+from exceptions.TelefonoInvalido import Telefono_Invalido
+from exceptions.TipoDeudaInvalida import  Tipo_socio_Invalida
 
 
 class Policlinica():

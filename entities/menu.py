@@ -2,7 +2,7 @@
 from entities.especialidad import especialidades
 from entities.medico import medicos
 from entities.policlinica import Policlinica
-from exceptions.string_invalido import String_Invalido
+from exceptions.StringInvalido import String_Invalido
 
 
 def menu():

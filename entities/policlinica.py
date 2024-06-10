@@ -1,16 +1,14 @@
 from entities.socio import Socio
 from entities.medico import Medico
-from entities.socio import socios
-from entities.medico import medicos
 from entities.consulta_medica import Consulta_Medica
 from entities.especialidad import Especialidad
 from entities.especialidad import especialidades
-from exceptions.precio_invalido import Precio_Invalido
-from exceptions.string_invalido import String_Invalido
-from exceptions.cedula_invalida import Cedula_Invalida
-from exceptions.telefono_invalido import Telefono_Invalido
-from exceptions.tipo_deuda_invalida import  Tipo_socio_Invalida
-from exceptions.fecha_invalida import Fecha_Invalida
+from exceptions.PrecioInvalido import PrecioInvalido
+from exceptions.StringInvalido import StringInvalido
+from exceptions.CedulaInvalida import CedulaInvalida
+from exceptions.TelefonoInvalido import TelefonoInvalido
+from exceptions.TipoDeudaInvalida import  TipoSocioInvalida
+from exceptions.FechaInvalida import FechaInvalida
 from exceptions.EspecialidadNoExiste import EspecialidadNoExiste
 from exceptions.MedicoNoExiste import MedicoNoExiste
 import time
@@ -30,7 +28,7 @@ class Policlinica():
         palabras = string.split()
         for i in range(0,len(palabras)):
             if palabras[i].isalpha() != True:
-                raise String_Invalido("No es un string válido, ingréselo de nuevo")
+                raise StringInvalido("No es un string válido, ingréselo de nuevo")
         return True
     
 
@@ -45,17 +43,17 @@ class Policlinica():
                 palabras = nombre_especialidad.split()
                 for i in range(0,len(palabras)):
                     if palabras[i].isalpha() != True:
-                        raise String_Invalido
+                        raise StringInvalido
                 break
-            except String_Invalido: 
+            except StringInvalido: 
                 nombre_especialidad = input("El nombre de la especialidad es incorrecto, ingréselo nuevamente. ")
                 
         while True:
             try:
                 if not isinstance(precio,int):
-                    raise Precio_Invalido
+                    raise PrecioInvalido
                 break
-            except Precio_Invalido:
+            except PrecioInvalido:
                 precio = int(input("El precio de la especialidad es incorrecto, ingréselo nuevamente. "))
 
         especialidad = Especialidad(nombre_especialidad,precio)
@@ -64,35 +62,6 @@ class Policlinica():
 
 
 
-
-    def especialidad_no_dada_de_alta ():  #mal
-        while True:
-            nombre_especialidad_consulta = input("Ingrese la especialidad")
-            String_Invalido.string_check(nombre_especialidad_consulta)
-            while String_Invalido.string_check(nombre_especialidad_consulta) != True:
-                nombre_especialidad_consulta = input("El nombre de la especialidad es incorrecto, ingréselo nuevamente")
-                String_Invalido.string_check(nombre_especialidad_consulta)
-            coso_pum = True
-            for i in range(0,len(especialidades)):
-                if nombre_especialidad_consulta == especialidades[i][0]:
-                    coso_pum = False
-            while coso_pum == True:
-                print("Esta especialidad no está dada de alta elija una opción: ")
-                print("1 - Volver a ingresar la especialidad")
-                resp = input("2 - Dar de alta esta especialidad")
-                if resp == 1:
-                    coso_pum = False
-                    pass
-                elif resp == 2:
-                    Policlinica.dar_alta_especialidad()
-                    break
-                else:
-                    pass
-            else: 
-                break
-
-
-    
     
    
     def dar_alta_socio(self): #bien
@@ -102,9 +71,9 @@ class Policlinica():
                 palabras = nombre_socio.split()
                 for i in range(0,len(palabras)):
                     if palabras[i].isalpha() != True:
-                        raise String_Invalido
+                        raise StringInvalido
                 break
-            except String_Invalido:
+            except StringInvalido:
                 nombre_socio = input("No es un nombre válido, ingréselo de nuevo")
 
 
@@ -114,20 +83,20 @@ class Policlinica():
                 palabras = apellido_socio.split()
                 for i in range(0,len(palabras)):
                     if palabras[i].isalpha() != True:
-                        raise String_Invalido
+                        raise StringInvalido
                 break
-            except String_Invalido:
+            except StringInvalido:
                 apellido_socio = input("No es un nombre válido, ingréselo de nuevo")
         
         cedula_socio = int(input("Ingrese la cédula de identidad:"))
         while True:
             try:
                 if isinstance(cedula_socio,int) == False:
-                    raise Cedula_Invalida
+                    raise CedulaInvalida
                 elif len(cedula_socio)!=8:
-                    raise Cedula_Invalida
+                    raise CedulaInvalida
                 break
-            except Cedula_Invalida:
+            except CedulaInvalida:
                 cedula_socio = input("No es una cédula válida, ingrese nuevamente una cédula de 8 dígitos.")
 
             
@@ -135,36 +104,36 @@ class Policlinica():
         while True:
             try:
                 if time.strptime(fnacimiento_socio, '%Y-%m-%d') == False:
-                    raise Fecha_Invalida
+                    raise FechaInvalida
                 break
-            except Fecha_Invalida:
+            except FechaInvalida:
                 fnacimiento_socio = input("No es una fecha válida, vuelva a ingresarla en el formato aaaa-mm-dd.")
 
         fingreso_socio = input ("Ingrese la fecha de ingreso a la institución en formato aaaa-mm-dd:")
         while True:
             try:
                 if time.strptime(fingreso_socio, '%Y-%m-%d') == False:
-                    raise Fecha_Invalida
+                    raise FechaInvalida
                 break
-            except Fecha_Invalida:
+            except FechaInvalida:
                 fingreso_socio = input("No es una fecha válida, vuelva a ingresarla en el formato aaaa-mm-dd.")
 
         celular_socio= int(input("Ingrese el número de celular:"))
         while True:
             try:
                 if len(celular_socio)!=9:
-                    raise Telefono_Invalido
+                    raise TelefonoInvalido
                 break
-            except Telefono_Invalido:
+            except TelefonoInvalido:
                 celular_socio = int(input("No es un número de celular válido, ingrese un número con el formato 09XXXXXXX"))
 
         tipo_socio = int(input ("Ingrese el tipo de socio: 1- Bonificado 2- No bonificado"))
         while True:
             try:
                 if tipo_socio != 1 or tipo_socio !=2:
-                    raise Tipo_socio_Invalida
+                    raise TipoSocioInvalida
                 break
-            except Tipo_socio_Invalida:
+            except TipoSocioInvalida:
                 tipo_socio = int(input("El valor ingresado no es correcto, elige la opción 1 o 2"))
 
         socio = Socio(nombre_socio,apellido_socio,cedula_socio,fnacimiento_socio,fingreso_socio,celular_socio,tipo_socio)
@@ -177,9 +146,9 @@ class Policlinica():
                 palabras = nombre_medico.split()
                 for i in range(0,len(palabras)):
                     if palabras[i].isalpha() != True:
-                        raise String_Invalido
+                        raise StringInvalido
                 break
-            except String_Invalido:
+            except StringInvalido:
                 nombre_medico = input("No es un apellido válido, ingréselo de nuevo")
 
         apellido_medico = input ("Ingrese el apellido:")
@@ -188,51 +157,51 @@ class Policlinica():
                 palabras = apellido_medico.split()
                 for i in range(0,len(palabras)):
                     if palabras[i].isalpha() != True:
-                        raise String_Invalido
+                        raise StringInvalido
                 break
-            except String_Invalido:
+            except StringInvalido:
                 apellido_medico = input("No es un apellido válido, ingréselo de nuevo")
         cedula_medico = input ("Ingrese la cédula de identidad:")
         while True:
             try:
                 if isinstance(cedula_medico,int) == False:
-                    raise Cedula_Invalida
+                    raise CedulaInvalida
                 elif len(cedula_medico)!=8:
-                    raise Cedula_Invalida
+                    raise CedulaInvalida
                 break
-            except Cedula_Invalida:
+            except CedulaInvalida:
                 cedula_medico = input("No es una cédula válida, ingrese nuevamente una cédula de 8 dígitos.")
         fnacimiento_medico = input ("Ingrese la fecha de nacimiento en formato aaaa-mm-dd:")
         while True:
             try:
                 if time.strptime(fnacimiento_medico, '%Y-%m-%d') == False:
-                    raise Fecha_Invalida
+                    raise FechaInvalida
                 break
-            except Fecha_Invalida:
+            except FechaInvalida:
                 fnacimiento_medico = input("No es una fecha válida, vuelva a ingresarla en el formato aaaa-mm-dd.")
         fingreso_medico = input ("Ingrese la fecha de ingreso a la institución en formato aaaa-mm-dd:")
         while True:
             try:
                 if time.strptime(fingreso_medico, '%Y-%m-%d') == False:
-                    raise Fecha_Invalida
+                    raise FechaInvalida
                 break
-            except Fecha_Invalida:
+            except FechaInvalida:
                 fingreso_medico = input("No es una fecha válida, vuelva a ingresarla en el formato aaaa-mm-dd.")
         celular_medico = input ("Ingrese el número de celular:")
         while True:
             try:
                 if len(celular_medico)!=9:
-                    raise Telefono_Invalido
+                    raise TelefonoInvalido
                 break
-            except Telefono_Invalido:
+            except TelefonoInvalido:
                 celular_medico = int(input("No es un número de celular válido, ingrese un número con el formato 09XXXXXXX"))
         especialidad_medico = input ("Ingrese la especialidad:")
         try:
             palabras = especialidad_medico.split()
             for i in range(0,len(palabras)):
                 if palabras[i].isalpha() != True:
-                    raise String_Invalido
-        except String_Invalido: 
+                    raise StringInvalido
+        except StringInvalido: 
             while True:
                 print("Esta especialidad no esta dada de alta")
                 print ("1 - Volver a ingresar la especialidad")
@@ -243,8 +212,8 @@ class Policlinica():
                         palabras = especialidad_medico.split()
                         for i in range(0,len(palabras)):
                             if palabras[i].isalpha() != True:
-                                raise String_Invalido
-                    except String_Invalido:
+                                raise StringInvalido
+                    except StringInvalido:
                         pass
                 if resp_esp == 2:
                     self.dar_alta_especialidad
@@ -254,17 +223,17 @@ class Policlinica():
         self.__medicos.append(medico)
     
     
-    def dar_alta_consulta(self): #mal
+    def dar_alta_consulta(self):
 
+        nombre_especialidad_consulta = input("Ingrese la especialidad")
         while True:
-            nombre_especialidad_consulta = input("Ingrese la especialidad")
             try:
                 if self.string_check(nombre_especialidad_consulta) != True:
-                    raise String_Invalido
+                    raise StringInvalido
                 especialidad = self.buscar_especialidad(nombre_especialidad_consulta)
                 if especialidad == None:
                     raise EspecialidadNoExiste
-            except String_Invalido: 
+            except StringInvalido: 
                 nombre_especialidad_consulta = input("El nombre de la especialidad es incorrecto, ingréselo nuevamente. ")
             except EspecialidadNoExiste:
                 print("Esta especialidad no está dada de alta elija una opción: ")
@@ -276,16 +245,15 @@ class Policlinica():
                     self.dar_alta_especialidad()
                     break
             
-        
+        nombre_medico_consulta = input("Ingrese la especialidad")
         while True:
-            nombre_medico_consulta = input("Ingrese la especialidad")
             try:
                 if self.string_check(nombre_medico_consulta) != True:
-                    raise String_Invalido
+                    raise StringInvalido
                 medico = self.buscar_especialidad(nombre_medico_consulta)
                 if medico == None:
                     raise MedicoNoExiste
-            except String_Invalido: 
+            except StringInvalido: 
                 nombre_medico_consulta = input("El nombre de la especialidad es incorrecto, ingréselo nuevamente. ")
                 pass
             except MedicoNoExiste:
@@ -298,19 +266,25 @@ class Policlinica():
                     self.dar_alta_medico()
                     break
             
-        fecha_consulta = input("Ingrese la fecha de consulta")
-        #Fecha_Invalida.fecha_check (fecha_consulta)
-        #while string_invalido.fnacimiento_check != 0 :                                                       MARTIN MARTIN MARTIN
-        #    fnacimiento = input("No es una fecha válida, vuelva a ingresarla en el formato aaaa-mm-dd.")     ESTO LO DEJE ASI PORQUE EXCEPTION NO ESTA HECHA Y NO TENGO NI LA MAS PUTA IDEA DE COMO HACERLA, GG WP
-        #    Fecha_Invalida.fnacimiento_check (fnacimiento_socio)
+        
+        fconsulta = input("Ingrese la fecha de consulta")
+        while True:
+            try:
+                if time.strptime(fconsulta, '%Y-%m-%d') == False:
+                    raise FechaInvalida
+                break
+            except FechaInvalida:
+                fconsulta = input("No es una fecha válida, vuelva a ingresarla en el formato aaaa-mm-dd.")
+        
         pacientes_max = input("Ingrese la cantidad de pacientes que se atenderán")
-        Precio_Invalido.check_precio(pacientes_max)
-        while Precio_Invalido.check_precio != True:
+        
+        PrecioInvalido.check_precio(pacientes_max)
+        while PrecioInvalido.check_precio != True:
             pacientes_max = ("No es un número válido, vuelva a ingresarlo")
-            Precio_Invalido.check_precio(pacientes_max)
+            PrecioInvalido.check_precio(pacientes_max)
 
-        consulta = Consulta_Medica(nombre_especialidad_consulta,nombre_medico_consulta,fecha_consulta,pacientes_max)
-        Consulta_Medica.alta_consulta(consulta)
+        consulta = Consulta_Medica(nombre_especialidad_consulta,nombre_medico_consulta,fconsulta,pacientes_max)
+        consulta.alta_consulta(consulta)
 
 
     
@@ -324,13 +298,13 @@ class Policlinica():
                 palabras = nombre_especialidad.split()
                 for i in range(0,len(palabras)):
                     if palabras[i].isalpha() != True:
-                        raise String_Invalido
+                        raise StringInvalido
                     
                 especialidad = self.buscar_especialidad(nombre_especialidad)
                 if especialidad != None:
                     raise EspecialidadNoExiste
                 break
-            except String_Invalido: 
+            except StringInvalido: 
                 nombre_especialidad = input("El nombre de la especialidad es incorrecto, ingréselo nuevamente. ")
             except EspecialidadNoExiste:
                 while True:
@@ -343,8 +317,8 @@ class Policlinica():
                             palabras = especialidad_medico.split()
                             for i in range(0,len(palabras)):
                                 if palabras[i].isalpha() != True:
-                                    raise String_Invalido
-                        except String_Invalido:
+                                    raise StringInvalido
+                        except StringInvalido:
                             pass
                     if resp_esp == 2:
                         self.dar_alta_especialidad()
@@ -375,13 +349,13 @@ class Policlinica():
                 palabras = nombre_especialidad.split()
                 for i in range(0,len(palabras)):
                     if palabras[i].isalpha() != True:
-                        raise String_Invalido
+                        raise StringInvalido
                     
                 especialidad = self.buscar_especialidad(nombre_especialidad)
                 if especialidad == None:
                     raise EspecialidadNoExiste
                 break
-            except String_Invalido: 
+            except StringInvalido: 
                 nombre_especialidad = input("El nombre de la especialidad es incorrecto, ingréselo nuevamente. ")
             except EspecialidadNoExiste:
                 while True:
@@ -394,8 +368,8 @@ class Policlinica():
                             palabras = especialidad_medico.split()
                             for i in range(0,len(palabras)):
                                 if palabras[i].isalpha() != True:
-                                    raise String_Invalido
-                        except String_Invalido:
+                                    raise StringInvalido
+                        except StringInvalido:
                             pass
                     if resp_esp == 2:
                         self.dar_alta_especialidad
@@ -407,19 +381,73 @@ class Policlinica():
 
 
 
-    def consultar_deudas(): #horrible
-        deudas = []
-        socios_deuda = []
-        for j in range(0,len(socios)):
-            for i in range(0,len(socios)):
-                max = 0
-                if max < socios[i][7]:
-                    max = socios[i][7]
-                    deudor = i
-                    deudas.append(max)
-                    socios_deuda.append(deudor)
-        listado_duedas = [socios_deuda,deudas]
-        print(listado_duedas)
+    def consultar_deudas(self): #horrible
+        tabla_duedas = [[0 for i in range(0,2)]]                            
+
+        for socio in self.__socios:
+            tabla_duedas.append(socio.dueda)                                        
+
+        tabla_duedas.pop(0)                                                      
+            
+        tabla_duedas.sort(key=lambda x: x[1], reverse=True)
+
+        print (tabla_duedas)
+        
+
+    
+
+
+    def consultar_cantidad_consultas(self):
+        fecha_inicio = input("Ingrese la fecha de inicio: ")
+    
+        while True:
+            try:
+                if time.strptime(fecha_inicio, '%Y-%m-%d') == False:
+                    raise FechaInvalida
+                break
+            except FechaInvalida:
+                fecha_inicio = input("No es una fecha válida, vuelva a ingresarla en el formato aaaa-mm-dd.")
+                
+        fecha_final = input("Ingrese la fecha final")
+
+        while True:
+            try:
+                if time.strptime(fecha_final, '%Y-%m-%d') == False:
+                    raise FechaInvalida
+                break
+            except FechaInvalida:
+                fecha_final = input("No es una fecha válida, vuelva a ingresarla en el formato aaaa-mm-dd.")
+
+        consultas_entre_fechas = []
+        for consulta in self.__consultas:
+            if consulta.fecha_consulta >= fecha_inicio and consulta.fecha_consulta <= fecha_final:
+                consultas_entre_fechas.append(consulta)
+        
+        print("La cantidad de consultas entre el ",fecha_inicio, "y",fecha_final,"es: ",len(consultas_entre_fechas))
+
+    def consultar_ganancias(self):
+        fecha_inicio = input("Ingrese la fecha de inicio: ")
+    
+        while True:
+            try:
+                if time.strptime(fecha_inicio, '%Y-%m-%d') == False:
+                    raise FechaInvalida
+                break
+            except FechaInvalida:
+                fecha_inicio = input("No es una fecha válida, vuelva a ingresarla en el formato aaaa-mm-dd.")
+                
+        fecha_final = input("Ingrese la fecha final")
+
+        while True:
+            try:
+                if time.strptime(fecha_final, '%Y-%m-%d') == False:
+                    raise FechaInvalida
+                break
+            except FechaInvalida:
+                fecha_final = input("No es una fecha válida, vuelva a ingresarla en el formato aaaa-mm-dd.")
+
+        
+
 
     def buscar_especialidad(self,nombre_especialidad):
         for especialidad in self.__especialidades:
