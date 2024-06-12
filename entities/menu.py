@@ -24,7 +24,7 @@ def menu():
         elif respuesta == "4":
             policlinica.dar_alta_consulta()
         elif respuesta == "5":
-            pass
+            policlinica.emitir_ticket()
         elif respuesta == "6":
             print("Seleccione una opción:")
             print("1. Obtener todos los médicos asociados a una especialidad específica")
@@ -35,13 +35,11 @@ def menu():
             if respuesta2 == "1":
                 policlinica.consultar_medicos()
             elif respuesta2 == "2":
-
-                pass
+                policlinica.consultar_precios()
             elif respuesta2 == "3":
                 policlinica.consultar_deudas()
-                pass
             elif respuesta2 == "4":
-                pass
+                policlinica.consultar_deudas()
             elif respuesta2 == "5":
                 pass
             else:

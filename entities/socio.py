@@ -1,7 +1,7 @@
 from entities.persona import Persona
 
 class Socio (Persona):
-    def __init__(self, nombre, apellido, cedula, fecha_nacimiento, fecha_ingreso, nro_celular,tipo_socio,deuda):
+    def __init__(self, nombre, apellido, cedula, fecha_nacimiento, fecha_ingreso, nro_celular,tipo_socio):
         super().__init__(nombre, apellido, cedula, fecha_nacimiento, fecha_ingreso, nro_celular)
         self.__nombre = nombre
         self.__apellido = apellido
@@ -10,7 +10,7 @@ class Socio (Persona):
         self.__fecha_ingreso = fecha_ingreso
         self.__nro_celular = nro_celular
         self.__tipo_socio = tipo_socio
-        self.__deuda = deuda
+        self.__deuda = 0
 
     @property
     def nombre(self):

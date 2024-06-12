@@ -27,4 +27,11 @@ class Consulta_Medica():
     @property 
     def fecha_consulta(self):
         return self.__fecha_consulta
+        
+
+    def lista_pacientes(self):
+        self.__pacientes = [0 for i in range(self.__cant_max_pacientes)]
+
+    def agregar_paciente(self,paciente):
+        self.__pacientes.append(paciente)
     

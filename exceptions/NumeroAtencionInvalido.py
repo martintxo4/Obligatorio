@@ -1,0 +1,2 @@
+class NumeroAtencionInvalido(Exception):
+    pass

@@ -7,7 +7,7 @@ class Especialidad():
         
     @property
     def nombre(self):
-        return self.__nombre_especialidad
+        return self.__nombre
 
     @property
     def precio(self):
