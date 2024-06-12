@@ -38,7 +38,7 @@ class Policlinica():
 
     def dar_alta_especialidad(self): #bien
         nombre_especialidad = input("Ingrese el nombre de la especialidad: ")
-        precio = int(input("Ingrese el precio asociado: "))
+        precio = input("Ingrese el precio asociado: ")
         while True:
             try:
                 palabras = nombre_especialidad.split()
@@ -55,7 +55,7 @@ class Policlinica():
                     raise IntInvalido
                 break
             except IntInvalido:
-                precio = int(input("El precio de la especialidad es incorrecto, ingréselo nuevamente. "))
+                precio = input("El precio de la especialidad es incorrecto, ingréselo nuevamente. ")
 
         especialidad = Especialidad(nombre_especialidad,precio)
         self.__especialidades.append(especialidad)
