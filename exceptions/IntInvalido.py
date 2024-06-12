@@ -1,0 +1,3 @@
+class IntInvalido(Exception):
+    pass
+

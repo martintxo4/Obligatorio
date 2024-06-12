@@ -1,6 +1,5 @@
 from entities.persona import Persona
 
-socios = []
 class Socio (Persona):
     def __init__(self, nombre, apellido, cedula, fecha_nacimiento, fecha_ingreso, nro_celular,tipo_socio,deuda):
         super().__init__(nombre, apellido, cedula, fecha_nacimiento, fecha_ingreso, nro_celular)
@@ -49,8 +48,7 @@ class Socio (Persona):
     def deuda(self,nueva_deuda):
         self.__deuda = nueva_deuda
 
-    def alta_socio(self):
-        socios.append(self)
+
 
 
 

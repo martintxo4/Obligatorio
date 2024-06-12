@@ -1,7 +1,7 @@
 
 class Consulta_Medica():
     def __init__(self,especialidad,medico,fecha_consulta,cant_max_pacientes):
-        self.__especialidad_consulta = especialidad
+        self.__especialidad = especialidad
         self.__medico = medico
         self.__fecha_consulta = fecha_consulta
         self.__pacientes = []
@@ -9,8 +9,8 @@ class Consulta_Medica():
 
 
     @property
-    def especialidad_consulta(self):
-        return self.__especialidad_consulta
+    def especialidad(self):
+        return self.__especialidad
     
     @property
     def medico(self):

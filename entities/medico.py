@@ -1,7 +1,5 @@
 from entities.persona import Persona
 
-
-medicos = []
 class Medico (Persona):
     def __init__(self, nombre, apellido, cedula, fecha_nacimiento, fecha_ingreso, nro_celular,especialidad):
         super().__init__(nombre, apellido, cedula, fecha_nacimiento, fecha_ingreso, nro_celular)
@@ -42,8 +40,6 @@ class Medico (Persona):
         return self.__especialidad
 
     
-    def alta_medico(self):
-        medicos.append(self)
         
 
 

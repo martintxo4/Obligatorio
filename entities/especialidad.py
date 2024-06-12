@@ -1,4 +1,3 @@
-especialidades = []
 class Especialidad():
     
     def __init__(self,nombre, precio):

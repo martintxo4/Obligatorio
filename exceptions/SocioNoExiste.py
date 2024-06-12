@@ -1,0 +1,2 @@
+class SocioNoExiste(Exception):
+    pass

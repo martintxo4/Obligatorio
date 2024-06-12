@@ -1,0 +1,2 @@
+class CantMaxPacientesAlcanzada(Exception):
+    pass

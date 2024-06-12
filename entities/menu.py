@@ -1,15 +1,11 @@
+from policlinica import Policlinica
 
-from entities.especialidad import especialidades
-from entities.medico import medicos
-from entities.policlinica import Policlinica
-from exceptions.StringInvalido import String_Invalido
 
 
 def menu():
     policlinica = Policlinica()
-    loop = True
-
-    while loop==True:
+    
+    while True:
         print("Seleccione una opción del menú:")
         print("1. Dar de alta una especialidad")
         print("2. Dar de alta un socio")
@@ -20,50 +16,16 @@ def menu():
         print("7. Salir del programa")
         respuesta = input()
         if respuesta == "1":
-            policlinica.dar_alta_especialidad
-            loop = True
-        
-        if respuesta == "2":
-            policlinica.dar_alta_socio
-            loop = True
-        
-        if respuesta == "3":
+            policlinica.dar_alta_especialidad()
+        elif respuesta == "2":
+            policlinica.dar_alta_socio()
+        elif respuesta == "3":
             policlinica.dar_alta_medico()
-            loop = True
-        if respuesta == "4":
+        elif respuesta == "4":
             policlinica.dar_alta_consulta()
-            loop = True
-        if respuesta == "5":
-            while True:
-                nombre_especialidad_ticket_consulta = input("Ingrese la especialidad")
-                String_Invalido.string_check(nombre_especialidad_ticket_consulta)
-                while String_Invalido.string_check != 0:
-                    nombre_especialidad_ticket_consulta = input("El nombre de la especialidad es incorrecto, ingréselo nuevamente")
-                    String_Invalido.string_check(nombre_especialidad_ticket_consulta)
-                chose_pum = True
-                for i in range(0,len(especialidades)):
-                    if nombre_especialidad_ticket_consulta == especialidades[i][0]:
-                        chose_pum = False
-                if chose_pum == True:
-                    print("El nombre de la especialidad es incorrecto, ingréselo nuevamente")
-                    pass
-                else: 
-                    break
-            for i in range(0,len(medicos)):
-                if nombre_especialidad_ticket_consulta == medicos [i][0]:
-                    pass
-
-                
-                
-                
-
-
-
-
-
-
-            loop = True
-        if respuesta == "6":
+        elif respuesta == "5":
+            pass
+        elif respuesta == "6":
             print("Seleccione una opción:")
             print("1. Obtener todos los médicos asociados a una especialidad específica")
             print("2. Obtener el precio de una consulta de una especialidad en específico.")
@@ -72,23 +34,20 @@ def menu():
             respuesta2 = input("5. Realizar consultas respecto a las ganancias obtenidas entre dos fechas.")
             if respuesta2 == "1":
                 policlinica.consultar_medicos()
-            if respuesta2 == "2":
+            elif respuesta2 == "2":
 
                 pass
-            if respuesta2 == "3":
+            elif respuesta2 == "3":
                 policlinica.consultar_deudas()
                 pass
-            if respuesta2 == "4":
+            elif respuesta2 == "4":
                 pass
-            if respuesta2 == "5":
-                especialidad_deseada = input("ingrese la especialidad deseada")
-                
+            elif respuesta2 == "5":
                 pass
             else:
                 pass
-            loop = True
-        if respuesta == "7":
-            loop = False
-        elif respuesta != "1" or "2" or "3" or "4" or "5" or "6" or "7":
+        elif respuesta == "7":
+            break
+        else:
             print("La opción seleccionada no es correcta, vuelva a intentar con otra opción.")
 
