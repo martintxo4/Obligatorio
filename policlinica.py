@@ -30,7 +30,7 @@ class Policlinica():
                 raise StringInvalido("No es un string válido, ingréselo de nuevo")
         return True
 
-    def dar_alta_especialidad(self): #bien
+    def dar_alta_especialidad(self): 
         nombre_especialidad = input("Ingrese el nombre de la especialidad: ")
         precio = input("Ingrese el precio asociado: ")
         while True:
@@ -53,8 +53,11 @@ class Policlinica():
 
         especialidad = Especialidad(nombre_especialidad,precio)
         self.__especialidades.append(especialidad)
+        print("La especialidad se ha creado con éxito.")
 
-    def dar_alta_socio(self): #bien
+        return especialidad
+
+    def dar_alta_socio(self): 
         nombre_socio = input("Ingrese el nombre:")
         while True:
             try:
@@ -96,7 +99,7 @@ class Policlinica():
                 if time.strptime(fnacimiento_socio, '%Y-%m-%d') == False:
                     raise FechaInvalida
                 break
-            except FechaInvalida:
+            except (FechaInvalida,ValueError):
                 fnacimiento_socio = input("No es una fecha válida, vuelva a ingresarla en el formato aaaa-mm-dd. ")
 
         fingreso_socio = input ("Ingrese la fecha de ingreso a la institución en formato aaaa-mm-dd: ")
@@ -105,7 +108,7 @@ class Policlinica():
                 if time.strptime(fingreso_socio, '%Y-%m-%d') == False:
                     raise FechaInvalida
                 break
-            except FechaInvalida:
+            except (FechaInvalida,ValueError):
                 fingreso_socio = input("No es una fecha válida, vuelva a ingresarla en el formato aaaa-mm-dd. ")
 
         celular_socio= input("Ingrese el número de celular: ")
@@ -130,6 +133,9 @@ class Policlinica():
 
         socio = Socio(nombre_socio,apellido_socio,cedula_socio,fnacimiento_socio,fingreso_socio,celular_socio,tipo_socio)
         self.__socios.append(socio)
+        print("El socio se ha creado con éxito")
+
+        return socio
     
     def dar_alta_medico(self): #bien
         nombre_medico = input ("Ingrese el nombre: ")
@@ -169,7 +175,7 @@ class Policlinica():
                 if time.strptime(fnacimiento_medico, '%Y-%m-%d') == False:
                     raise FechaInvalida
                 break
-            except FechaInvalida:
+            except (FechaInvalida,ValueError):
                 fnacimiento_medico = input("No es una fecha válida, vuelva a ingresarla en el formato aaaa-mm-dd. ")
         fingreso_medico = input ("Ingrese la fecha de ingreso a la institución en formato aaaa-mm-dd: ")
         while True:
@@ -177,7 +183,7 @@ class Policlinica():
                 if time.strptime(fingreso_medico, '%Y-%m-%d') == False:
                     raise FechaInvalida
                 break
-            except FechaInvalida:
+            except (FechaInvalida,ValueError):
                 fingreso_medico = input("No es una fecha válida, vuelva a ingresarla en el formato aaaa-mm-dd. ")
         celular_medico = input ("Ingrese el número de celular: ")
         while True:
@@ -208,15 +214,20 @@ class Policlinica():
                 if resp_esp == "1":
                     especialidad_medico = input ("Ingrese la especialidad: ")
                 elif resp_esp == "2":
-                    especialidad = self.dar_alta_especialidad
-                    especialidad_medico = especialidad.nombre
+                    especialidad_nueva = self.dar_alta_especialidad()
+                    especialidad_medico = especialidad_nueva.nombre
                     break
+                else:
+                    print("La opción seleccionada no es correcta, vuelva a intentar con otra opción.")
             except StringInvalido:
                 especialidad_medico = input("El nombre de la especialidad no es un string, ingréselo nuevamente. ")
                     
 
         medico = Medico(nombre_medico,apellido_medico,cedula_medico,fnacimiento_medico,fingreso_medico,celular_medico,especialidad_medico)
         self.__medicos.append(medico)
+        print("El médico se ha creado con éxito")
+
+        return medico
     
     
     def dar_alta_consulta(self):
@@ -242,9 +253,11 @@ class Policlinica():
                 if resp == "1":
                     nombre_especialidad_consulta = input("Ingrese la especialidad ")
                 elif resp == "2":
-                    especialidad = self.dar_alta_especialidad()
-                    nombre_especialidad_consulta = especialidad.nombre
+                    especialidad_nueva = self.dar_alta_especialidad()
+                    nombre_especialidad_consulta = especialidad_nueva.nombre
                     break
+                else:
+                    print("La opción seleccionada no es correcta, vuelva a intentar con otra opción.")
             
         nombre_medico_consulta = input("Ingrese el nombre del médico ")
         while True:
@@ -272,9 +285,11 @@ class Policlinica():
                 if resp == "1":
                     nombre_medico_consulta = input("Ingrese el nombre del médico: ")
                 elif resp == "2":
-                    medico = self.dar_alta_medico()
-                    nombre_medico_consulta = (medico.nombre + " " + medico.apellido)
+                    medico_nuevo = self.dar_alta_medico()
+                    nombre_medico_consulta = (medico_nuevo.nombre + " " + medico_nuevo.apellido)
                     break
+                else:
+                    print("La opción seleccionada no es correcta, vuelva a intentar con otra opción.")
             
         
         fconsulta = input("Ingrese la fecha de consulta")
@@ -283,7 +298,7 @@ class Policlinica():
                 if time.strptime(fconsulta, '%Y-%m-%d') == False:
                     raise FechaInvalida
                 break
-            except FechaInvalida:
+            except (FechaInvalida,ValueError):
                 fconsulta = input("No es una fecha válida, vuelva a ingresarla en el formato aaaa-mm-dd. ")
         
         pacientes_max = input("Ingrese la cantidad de pacientes que se atenderán ")
@@ -299,6 +314,13 @@ class Policlinica():
         self.__consultas.append(consulta)
         medico.agregar_consulta(consulta)
         consulta.lista_pacientes()
+
+        print("La consulta se ha creado con éxito")
+
+
+
+
+
         
     def emitir_ticket(self):
         especialidad_ticket = input("Ingrese la especialidad ")
@@ -322,9 +344,11 @@ class Policlinica():
                 if resp == "1":
                     especialidad_ticket = input("Ingrese la especialidad: ")
                 elif resp == "2":
-                    especialidad_del_ticket = self.dar_alta_especialidad()
-                    especialidad_ticket = especialidad_del_ticket.nombre
+                    especialidad_del_ticket_nueva = self.dar_alta_especialidad()
+                    especialidad_ticket = especialidad_del_ticket_nueva.nombre
                     break
+                else:
+                    print("La opción seleccionada no es correcta, vuelva a intentar con otra opción.")
 
         
         consultas_de_especialidad = []
@@ -408,8 +432,11 @@ class Policlinica():
                 if resp == "1":
                     pass
                 elif resp == "2":
-                    socio = self.dar_alta_socio()
+                    socio_nuevo = self.dar_alta_socio()
+                    socio = socio_nuevo
                     break
+                else:
+                    print("La opción seleccionada no es correcta, vuelva a intentar con otra opción.")
 
         precio = especialidad_del_ticket.precio
 
@@ -419,6 +446,8 @@ class Policlinica():
             socio.deuda += (int(precio) * 0.8)
  
         consulta_elegida.pacientes[numero_atencion -1] = socio
+
+        print("El ticket se ha creado con éxito")
 
     
     def consultar_medicos(self): 
@@ -444,8 +473,11 @@ class Policlinica():
                     if resp_esp == "1":
                         nombre_especialidad = input ("Ingrese la especialidad: ")
                     if resp_esp == "2":
-                        especialidad = self.dar_alta_especialidad()
+                        especialidad_nueva = self.dar_alta_especialidad()
+                        especialidad = especialidad_nueva
                         break
+                    else:
+                        print("La opción seleccionada no es correcta, vuelva a intentar con otra opción.")
 
 
         medicos_especialidad = []
@@ -480,16 +512,14 @@ class Policlinica():
                     print ("1 - Volver a ingresar la especialidad")
                     resp_esp = input("2 - Dar de alta esta especialidad")            
                     if resp_esp == "1":
-                        especialidad_medico = input ("Ingrese la especialidad: ")
-                        try:
-                            palabras = especialidad_medico.split()
-                            for i in range(0,len(palabras)):
-                                if palabras[i].isalpha() != True:
-                                    raise StringInvalido
-                        except StringInvalido:
-                            pass
+                        nombre_especialidad = input ("Ingrese la especialidad: ")
                     if resp_esp == "2":
-                        especialidad = self.dar_alta_especialidad
+                        especialidad_nueva = self.dar_alta_especialidad
+                        especialidad = especialidad_nueva
+                        break
+                    else:
+                        print("La opción seleccionada no es correcta, vuelva a intentar con otra opción.")
+
             
         print("El precio de esta especialidad es: ",especialidad.precio)
         
@@ -515,7 +545,7 @@ class Policlinica():
                 if time.strptime(fecha_inicio, '%Y-%m-%d') == False:
                     raise FechaInvalida
                 break
-            except FechaInvalida:
+            except (FechaInvalida,ValueError):
                 fecha_inicio = input("No es una fecha válida, vuelva a ingresarla en el formato aaaa-mm-dd. ")
                 
         fecha_final = input("Ingrese la fecha final: ")
@@ -525,7 +555,7 @@ class Policlinica():
                 if time.strptime(fecha_final, '%Y-%m-%d') == False:
                     raise FechaInvalida
                 break
-            except FechaInvalida:
+            except (FechaInvalida,ValueError):
                 fecha_final = input("No es una fecha válida, vuelva a ingresarla en el formato aaaa-mm-dd.")
 
         consultas_entre_fechas = []
@@ -543,7 +573,7 @@ class Policlinica():
                 if time.strptime(fecha_inicio, '%Y-%m-%d') == False:
                     raise FechaInvalida
                 break
-            except FechaInvalida:
+            except (FechaInvalida,ValueError):
                 fecha_inicio = input("No es una fecha válida, vuelva a ingresarla en el formato aaaa-mm-dd. ")
                 
         fecha_final = input("Ingrese la fecha final: ")
@@ -553,7 +583,7 @@ class Policlinica():
                 if time.strptime(fecha_final, '%Y-%m-%d') == False:
                     raise FechaInvalida
                 break
-            except FechaInvalida:
+            except (FechaInvalida,ValueError):
                 fecha_final = input("No es una fecha válida, vuelva a ingresarla en el formato aaaa-mm-dd. ")
 
         
