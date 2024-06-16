@@ -13,6 +13,7 @@ from exceptions.MedicoNoExiste import MedicoNoExiste
 from exceptions.SocioNoExiste import SocioNoExiste
 from exceptions.CantMaxPacientesAlcanzada import CantMaxPacientesAlcanzada
 from exceptions.NumeroAtencionInvalido import NumeroAtencionInvalido
+from exceptions.ConsultaNoExiste import ConsultaNoExiste
 import time
 
 
@@ -202,33 +203,28 @@ class Policlinica():
             except TelefonoInvalido:
                 celular_medico = int(input("No es un número de celular válido, ingrese un número con el formato 09XXXXXXX"))
         especialidad_medico = input ("Ingrese la especialidad:")
-        try:
-            palabras = especialidad_medico.split()
-            for i in range(0,len(palabras)):
-                if palabras[i].isalpha() != True:
-                    raise StringInvalido
+        while True:
+            try:
+                palabras = especialidad_medico.split()
+                for i in range(0,len(palabras)):
+                    if palabras[i].isalpha() != True:
+                        raise StringInvalido
                 
-            especialidad = self.buscar_especialidad(especialidad_medico)
-            if especialidad == None:
-                raise EspecialidadNoExiste
-        except EspecialidadNoExiste: 
-            while True:
+                especialidad = self.buscar_especialidad(especialidad_medico)
+                if especialidad == None:
+                    raise EspecialidadNoExiste
+                break
+            except EspecialidadNoExiste: 
                 print("Esta especialidad no esta dada de alta")
                 print ("1 - Volver a ingresar la especialidad")
                 resp_esp = input("2 - Dar de alta esta especialidad")            
                 if resp_esp == "1":
                     especialidad_medico = input ("Ingrese la especialidad:")
-                    try:
-                        palabras = especialidad_medico.split()
-                        for i in range(0,len(palabras)):
-                            if palabras[i].isalpha() != True:
-                                raise StringInvalido
-                    except StringInvalido:
-                        pass
                 elif resp_esp == "2":
                     self.dar_alta_especialidad
-        except StringInvalido:
-            especialidad_medico = input("El nombre de la especialidad no es un string, ingréselo nuevamente. ")
+                    break
+            except StringInvalido:
+                especialidad_medico = input("El nombre de la especialidad no es un string, ingréselo nuevamente. ")
                     
 
         medico = Medico(nombre_medico,apellido_medico,cedula_medico,fnacimiento_medico,fingreso_medico,celular_medico,especialidad_medico)
@@ -268,8 +264,12 @@ class Policlinica():
                 for i in range(0,len(palabras)):
                     if palabras[i].isalpha() != True:
                         raise StringInvalido
-                
-                medico = self.buscar_medico_por_nombre(nombre_medico_consulta)
+            
+                medico = None
+                for medicos in self.__medicos:
+                    if (medicos.nombre + " " + medicos.apellido) == nombre_medico_consulta:
+                        medico = medicos
+            
 
                 if medico == None:
                     raise MedicoNoExiste
@@ -309,6 +309,8 @@ class Policlinica():
         
         consulta = Consulta_Medica(nombre_especialidad_consulta,nombre_medico_consulta,fconsulta,pacientes_max)
         self.__consultas.append(consulta)
+        medico.agregar_consulta(consulta)
+        consulta.lista_pacientes()
         
 
 
@@ -322,9 +324,10 @@ class Policlinica():
                 for i in range(0,len(palabras)):
                     if palabras[i].isalpha() != True:
                         raise StringInvalido
-                especialidad = self.buscar_especialidad(especialidad_ticket)
-                if especialidad == None:
+                especialidad_del_ticket = self.buscar_especialidad(especialidad_ticket)
+                if especialidad_del_ticket == None:
                     raise EspecialidadNoExiste
+                break
             except StringInvalido: 
                 especialidad_ticket = input("El nombre de la especialidad es incorrecto, ingréselo nuevamente. ")
             except EspecialidadNoExiste:
@@ -334,59 +337,73 @@ class Policlinica():
                 if resp == "1":
                     especialidad_ticket = input("Ingrese la especialidad ")
                 elif resp == "2":
-                    self.dar_alta_especialidad()
+                    especialidad_del_ticket = self.dar_alta_especialidad()
                     break
 
         
         consultas_de_especialidad = []
         i=0
-        for consulta in self.__consultas:
-            if consulta.especialidad == especialidad_ticket:
-                i +=1
-                print(i,"- Doctor: ",consulta.medico," Día de la consulta: ",consulta.fecha_consulta)
-                consultas_de_especialidad.append(consulta)
+        while True:
+            try:
+                for consulta in self.__consultas:
+                    if consulta.especialidad == especialidad_ticket:
+                        i +=1
+                        print(i,"- Doctor: ",consulta.medico," Día de la consulta: ",consulta.fecha_consulta)
+                        consultas_de_especialidad.append(consulta)
+                if len(consultas_de_especialidad) == 0:
+                    raise ConsultaNoExiste
+                break
+            except ConsultaNoExiste:
+                print("No hay consultas de esa especialidad ")
+                self.menu()
 
-        indice = input("Seleccione la opción deseada ")
+
+
+        
 
         while True:
             try:
+                indice = int(input("Seleccione la opción deseada "))
+
                 if indice > len(consultas_de_especialidad):
                     raise NumeroAtencionInvalido
                 
-                medico = consultas_de_especialidad [indice][1]
-                fecha = consultas_de_especialidad [indice][2] 
 
-                consulta = self.buscar_consulta(medico,fecha)
+                consulta_elegida = consultas_de_especialidad [indice -1]
 
                 numeros_disponibles = [] 
-                for i in range(len(consulta.cant_max_pacientes)):
-                    if consulta.pacientes[i] == 0:
-                        numeros_disponibles.append(i+1)
+                for j in range(len(consulta_elegida.cant_max_pacientes)):
+                    if consulta_elegida.pacientes[j] == 0:
+                        numeros_disponibles.append(j+1)
+
 
                 if len(numeros_disponibles) == 0:
                     raise CantMaxPacientesAlcanzada
                 
                 break
-                
+
             except CantMaxPacientesAlcanzada:
                 print ("No hay mas consultas disponibles")
+
+            except NumeroAtencionInvalido:
+                print(f"La opción ingresada no es una opción válida debe ser un número entre 1 y {len(consultas_de_especialidad)}, vuelva a ingresarla. ")
 
         while True:
             try:
                 print(f"Numeros disponibles: {numeros_disponibles}")
 
-                numero_atencion = input("Seleccionar el número de atención deseado")
+                numero_atencion = int(input("Seleccionar el número de atención deseado"))
 
-                joaco = 0
+                joaco = False
                 for i in range(len(numeros_disponibles)):
                     if numeros_disponibles[i] == numero_atencion:
-                        joaco += 1
+                        joaco = True
                 
-                if joaco == 0:
+                if joaco == False:
                     raise NumeroAtencionInvalido
                 break
             except NumeroAtencionInvalido:
-                numero_atencion = input("No es un número de consulta válido, los números válidos son: 1, 4, 5 y 7")
+                print(f"No es un número de consulta válido, los números válidos son: {numeros_disponibles}")
 
         while True:
             try:
@@ -408,15 +425,28 @@ class Policlinica():
                     if resp == "1":
                         pass
                     elif resp == "2":
-                        self.dar_alta_socio()
+                        socio = self.dar_alta_socio()
                         break
 
+        precio = especialidad_del_ticket.precio
+
+        print(precio)
+
+        if socio.tipo == "2":
+            socio.deuda += int(precio)
+        elif socio.tipo == "1":
+            socio.deuda += (int(precio) * 0.8)
+
+        print(socio.deuda)
+
         consulta.agregar_paciente(socio)   
-        socio.deuda += especialidad.precio
+        consulta.pacientes[numero_atencion -1] = socio
+
+        
 
     
     
-    def consultar_medicos(self): #bien
+    def consultar_medicos(self): 
         nombre_especialidad = input("Ingrese la especialidad: ")
         while True:
             try:
@@ -426,7 +456,7 @@ class Policlinica():
                         raise StringInvalido
                     
                 especialidad = self.buscar_especialidad(nombre_especialidad)
-                if especialidad != None:
+                if especialidad == None:
                     raise EspecialidadNoExiste
                 break
             except StringInvalido: 
@@ -446,14 +476,14 @@ class Policlinica():
                         except StringInvalido:
                             pass
                     if resp_esp == "2":
-                        self.dar_alta_especialidad()
+                        especialidad = self.dar_alta_especialidad()
                         break
 
 
         medicos_especialidad = []
         for medico in self.__medicos:
-            if especialidad == medico.especialidad:
-                medicos_especialidad.append(medico)
+            if nombre_especialidad == medico.especialidad:
+                medicos_especialidad.append(medico.nombre + " " + medico.apellido)
 
         print(medicos_especialidad)
         
@@ -467,7 +497,7 @@ class Policlinica():
 
 
     
-    def consultar_precios(self): #bien
+    def consultar_precios(self): 
         nombre_especialidad = input("Ingrese su especialidad: ")
         while True:
             try:
@@ -506,22 +536,22 @@ class Policlinica():
 
 
 
-    def consultar_deudas(self): #horrible
-        tabla_duedas = [[0 for i in range(0,2)]]                            
+    def consultar_deudas(self):
 
-        for socio in self.__socios:
-            tabla_duedas.append(socio.dueda)                                        
+        
+        socios_ordenados = sorted(self.__socios, key = lambda x:x.deuda)
 
-        tabla_duedas.pop(0)                                                      
-            
-        tabla_duedas.sort(key=lambda x: x[1], reverse=True)
+        tabla_deudas = []
+        for i in range(len(socios_ordenados)):
+            socio_x = socios_ordenados[i]
+            tabla_deudas.append([socio_x.nombre +" "+ socio_x.apellido] + [socio_x.deuda])
 
-        print (tabla_duedas)
+        print(tabla_deudas)
+
         
 
+       
     
-
-
     def consultar_cantidad_consultas(self):
         fecha_inicio = input("Ingrese la fecha de inicio: ")
     
@@ -533,7 +563,7 @@ class Policlinica():
             except FechaInvalida:
                 fecha_inicio = input("No es una fecha válida, vuelva a ingresarla en el formato aaaa-mm-dd.")
                 
-        fecha_final = input("Ingrese la fecha final")
+        fecha_final = input("Ingrese la fecha final: ")
 
         while True:
             try:
@@ -573,6 +603,12 @@ class Policlinica():
 
         
 
+        
+
+        
+
+        
+
 
     def buscar_especialidad(self,nombre_especialidad):
         for especialidad in self.__especialidades:
@@ -598,12 +634,65 @@ class Policlinica():
                 return consulta
         return None
     
-    def buscar_medico_por_nombre(self,nombre_medico):
+    def buscar_medico_por_nombre_y_apellido(self,nombre_medico,apellido_medico):
         for medico in self.__medicos:
-                    if medico.nombre == nombre_medico:
-                        return medico
+                if medico.nombre == nombre_medico and medico.apellido == apellido_medico:
+                    return medico
         return None
     
+
+    def menu(self):
+    
+    
+        while True:
+            print("Seleccione una opción del menú:")
+            print("1. Dar de alta una especialidad")
+            print("2. Dar de alta un socio")
+            print("3. Dar de alta un médico")
+            print("4. Dar de alta una consulta médica")
+            print("5. Emitir un ticket de consulta")
+            print("6. Realizar consultas")
+            print("7. Salir del programa")
+            respuesta = input()
+            if respuesta == "1":
+                self.dar_alta_especialidad()
+            elif respuesta == "2":
+                self.dar_alta_socio()
+            elif respuesta == "3":
+                self.dar_alta_medico()
+            elif respuesta == "4":
+                self.dar_alta_consulta()
+            elif respuesta == "5":
+                self.emitir_ticket()
+            elif respuesta == "6":
+                while True:
+                    print("Seleccione una opción:")
+                    print("1. Obtener todos los médicos asociados a una especialidad específica")
+                    print("2. Obtener el precio de una consulta de una especialidad en específico.")
+                    print("3. Listar todos los socios con sus deudas asociadas en orden ascendente.")
+                    print("4. Realizar consultas respecto a cantidad de consultas entre dos fechas")
+                    respuesta2 = input("5. Realizar consultas respecto a las ganancias obtenidas entre dos fechas.")
+                    if respuesta2 == "1":
+                        self.consultar_medicos()
+                        break
+                    elif respuesta2 == "2":
+                        self.consultar_precios()
+                        break
+                    elif respuesta2 == "3":
+                        self.consultar_deudas()
+                        break
+                    elif respuesta2 == "4":
+                        self.consultar_cantidad_consultas()
+                        break
+                    elif respuesta2 == "5":
+                        self.consultar_ganancias()
+                        break
+                    else:
+                        print("La opción seleccionada no es correcta, vuelva a intentar con otra opción.")
+            elif respuesta == "7":
+                break
+        else:
+            print("La opción seleccionada no es correcta, vuelva a intentar con otra opción.")
     
 
 

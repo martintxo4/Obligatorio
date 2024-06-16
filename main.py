@@ -1,6 +1,8 @@
-from entities.menu import menu
+from policlinica import Policlinica
 
 
 if __name__ == "__main__":
-    menu()
+    policlinica = Policlinica()
+
+    policlinica.menu()
     

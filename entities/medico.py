@@ -10,6 +10,7 @@ class Medico (Persona):
         self.__fecha_ingreso = fecha_ingreso
         self.__nro_celular = nro_celular
         self.__especialidad = especialidad
+        self.__consultas = []
     
     @property
     def nombre(self):
@@ -38,7 +39,13 @@ class Medico (Persona):
     @property
     def especialidad (self):
         return self.__especialidad
+    
+    @property
+    def consultas (self):
+        return self.__consultas
 
+    def agregar_consulta(self,consulta):
+        self.__consultas.append(consulta)
     
         
 
